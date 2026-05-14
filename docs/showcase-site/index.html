@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShrinkFlow v1.2.0 — 作品集案例</title>
+<style>
+:root {
+  --bg: #0f1117;
+  --bg-soft: #151823;
+  --card: rgba(255,255,255,0.045);
+  --card-strong: rgba(255,255,255,0.075);
+  --border: rgba(255,255,255,0.10);
+  --text: #f5f7fa;
+  --muted: #9aa4b2;
+  --muted-2: #6b7280;
+  --accent: #a78bfa;
+  --accent-2: #60a5fa;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --danger: #fb7185;
+  --radius: 20px;
+  --max: 1180px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* Nav */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(15,17,23,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+.nav-brand {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+.nav-brand span { color: var(--accent); }
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+.lang-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.lang-btn:hover { color: var(--text); border-color: var(--accent); }
+
+/* Sections */
+.section {
+  padding: 88px 0;
+}
+.section-header {
+  margin-bottom: 48px;
+}
+.section-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.section-header p {
+  color: var(--muted);
+  font-size: 16px;
+  max-width: 640px;
+}
+
+/* Grid */
+.grid { display: grid; gap: 20px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-5 { grid-template-columns: repeat(5, 1fr); }
+
+/* Card */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.18);
+}
+.card-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--muted-2);
+  margin-bottom: 10px;
+}
+.card h3 {
+  font-size: 17px;
+  font-weight: 650;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.card p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* Badge */
+.badge {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(167,139,250,0.12);
+  color: var(--accent);
+  border: 1px solid rgba(167,139,250,0.2);
+}
+.badge-blue {
+  background: rgba(96,165,250,0.12);
+  color: var(--accent-2);
+  border-color: rgba(96,165,250,0.2);
+}
+.badge-green {
+  background: rgba(52,211,153,0.12);
+  color: var(--success);
+  border-color: rgba(52,211,153,0.2);
+}
+
+/* Pill */
+.pill {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  background: transparent;
+}
+.pill-active {
+  border-color: rgba(167,139,250,0.4);
+  background: rgba(167,139,250,0.1);
+  color: var(--accent);
+}
+
+/* Metric */
+.metric {
+  text-align: center;
+  padding: 20px 12px;
+}
+.metric-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+.metric-label {
+  font-size: 12px;
+  color: var(--muted-2);
+  font-weight: 500;
+}
+
+/* Flow */
+.flow {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.flow-step {
+  flex: 1;
+  min-width: 160px;
+  text-align: center;
+}
+.flow-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--card-strong);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0 auto 12px;
+}
+.flow-step h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.flow-step p {
+  font-size: 12px;
+  color: var(--muted-2);
+  line-height: 1.4;
+}
+
+/* Table */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+}
+.table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.table-wrap th {
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--muted-2);
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+}
+.table-wrap td {
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: var(--muted);
+}
+.table-wrap tr:last-child td { border-bottom: none; }
+.table-wrap td:first-child { color: var(--text); font-weight: 500; }
+
+/* Screenshot */
+.screenshot-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.screenshot-media {
+  position: relative;
+  overflow: hidden;
+}
+.screenshot-media img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  object-position: top;
+  border-bottom: 1px solid var(--border);
+  display: block;
+}
+.screenshot-placeholder {
+  height: 180px;
+  background: linear-gradient(135deg, rgba(167,139,250,0.06) 0%, rgba(96,165,250,0.06) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+}
+.screenshot-placeholder span {
+  font-size: 12px;
+  color: var(--muted-2);
+  font-weight: 500;
+}
+.screenshot-media.has-image .screenshot-placeholder {
+  display: none;
+}
+.screenshot-info {
+  padding: 16px 20px;
+}
+.screenshot-info h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.screenshot-info p {
+  font-size: 12px;
+  color: var(--muted-2);
+  margin-bottom: 6px;
+}
+.screenshot-info code {
+  font-size: 11px;
+  color: var(--accent);
+  background: rgba(167,139,250,0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+}
+
+/* Screenshot grid */
+.screenshot-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.screenshot-card.featured { grid-column: span 2; }
+.screenshot-card.featured .screenshot-media img { height: 360px; }
+.screenshot-card .screenshot-media img { height: 280px; }
+.screenshot-media { min-height: 280px; }
+.screenshot-placeholder { height: 280px; }
+.screenshot-card.featured .screenshot-media { min-height: 360px; }
+.screenshot-card.featured .screenshot-placeholder { height: 360px; }
+.screenshot-card { box-shadow: 0 18px 40px rgba(0,0,0,0.18); }
+.screenshot-info .screenshot-tag { font-size: 11px; color: var(--accent); background: rgba(167,139,250,0.08); padding: 2px 8px; border-radius: 4px; font-weight: 600; display: inline-block; margin-bottom: 6px; }
+
+/* Case Summary */
+.case-card { position: relative; padding-left: 48px; }
+.case-num { position: absolute; left: 20px; top: 24px; font-size: 28px; font-weight: 800; color: rgba(167,139,250,0.15); line-height: 1; }
+
+/* Roadmap tag */
+.roadmap-tag { font-size: 11px; color: var(--accent-2); background: rgba(96,165,250,0.08); padding: 2px 8px; border-radius: 4px; font-weight: 600; display: inline-block; margin-bottom: 8px; }
+
+/* Hero chips */
+.hero-chips { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+
+/* Architecture diagram */
+.arch-diagram {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--muted);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Tag list */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.tag {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.05);
+  color: var(--muted-2);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Status dot */
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+.dot-green { background: var(--success); }
+.dot-yellow { background: var(--warning); }
+
+/* Hero */
+.hero {
+  min-height: 82vh;
+  display: flex;
+  align-items: center;
+  padding-top: 56px;
+  background: radial-gradient(ellipse at 20% 30%, rgba(139,92,246,0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 70%, rgba(96,165,250,0.06) 0%, transparent 50%);
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.hero-badge {
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: 44px;
+  font-weight: 750;
+  letter-spacing: -1.2px;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.hero h1 span { color: var(--accent); }
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+.hero-desc {
+  font-size: 14px;
+  color: var(--muted-2);
+  margin-bottom: 28px;
+  line-height: 1.55;
+  max-width: 480px;
+}
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.btn {
+  display: inline-block;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #0f1117;
+}
+.btn-primary:hover { opacity: 0.88; }
+.btn-ghost {
+  border: 1px solid var(--border);
+  color: var(--muted);
+  background: transparent;
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--text); }
+.hero-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* Hero preview card */
+.hero-preview {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  font-size: 13px;
+}
+.hero-preview-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+.hero-preview-pills {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.hero-preview-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: var(--muted);
+}
+.hero-preview-row b { color: var(--text); font-weight: 600; }
+.hero-preview-row .green { color: var(--success); }
+.hero-preview-row .yellow { color: var(--warning); }
+.hero-preview-btn {
+  margin-top: 16px;
+  padding: 10px;
+  text-align: center;
+  background: var(--accent);
+  color: #0f1117;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* Problem card */
+.problem-card .card-label {
+  color: var(--danger);
+}
+
+/* Safety card */
+.safety-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.safety-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.safety-card p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* Layer card */
+.layer-card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.layer-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(167,139,250,0.1);
+  padding: 4px 10px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Arch modules */
+.arch-modules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.arch-module {
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 6px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+}
+
+/* Footer */
+.footer {
+  padding: 48px 0;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+.footer p {
+  color: var(--muted-2);
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-5 { grid-template-columns: repeat(3, 1fr); }
+  .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 768px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .grid-4 { grid-template-columns: 1fr; }
+  .grid-5 { grid-template-columns: repeat(2, 1fr); }
+  .hero h1 { font-size: 32px; }
+  .nav-inner { height: auto; padding: 10px 28px; flex-wrap: wrap; }
+  .nav-links { gap: 16px; flex-wrap: wrap; }
+  .section { padding: 56px 0; }
+  .screenshot-grid { grid-template-columns: 1fr; }
+  .screenshot-card.featured { grid-column: span 1; }
+  .screenshot-card.featured .screenshot-media,
+  .screenshot-card.featured .screenshot-placeholder { height: 240px; min-height: 240px; }
+  .screenshot-media, .screenshot-placeholder { height: 220px; min-height: 220px; }
+}
+@media (max-width: 480px) {
+  .grid-5 { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 28px; }
+  .flow { flex-direction: column; }
+}
+
+/* Print */
+@media print {
+  .nav { display: none; }
+  body { background: #fff; }
+  .card, .screenshot-card, .hero-preview, .arch-diagram, .table-wrap {
+    border-color: #ddd;
+    background: #fafafa;
+  }
+  .card:hover { transform: none; }
+  .section { page-break-inside: avoid; }
+  .hero { min-height: auto; padding-top: 24px; }
+  h1, h2, h3 { color: #111; }
+  p, td, li, span { color: #333; }
+  .badge, .pill, .tag { border-color: #ccc; color: #555; background: #f5f5f5; }
+  .btn-primary { background: #555; color: #fff; }
+  .btn-ghost { border-color: #ccc; color: #555; }
+  .metric-value { color: #111; }
+  .hero-preview { border-color: #ddd; }
+  .lang-btn { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">Shrink<span>Flow</span></div>
+    <div class="nav-links">
+      <a href="#overview" data-i18n="nav.overview">概览</a>
+      <a href="#engine" data-i18n="nav.engine">决策引擎</a>
+      <a href="#screenshots" data-i18n="nav.screenshots">产品截图</a>
+      <a href="#architecture" data-i18n="nav.architecture">架构</a>
+      <a href="#roadmap" data-i18n="nav.roadmap">路线图</a>
+      <button id="lang-toggle" class="lang-btn">EN</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Section 1: Hero -->
+<section class="hero" id="overview">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">
+          <span class="badge">ShrinkFlow v1.2.0 &middot; <span data-i18n="hero.badge">Windows 桌面应用</span></span>
+        </div>
+        <h1><span data-i18n="hero.titleMain">元数据感知的视频批量压缩</span><br><span data-i18n="hero.titleSub">每个视频都有自己的最优策略</span></h1>
+        <p class="hero-sub" data-i18n="hero.sub">ShrinkFlow 会分析每个视频的编码、码率、分辨率和文件大小，为每个文件独立判断：压缩、跳过，还是需要人工确认。</p>
+        <p class="hero-desc" data-i18n="hero.desc">它把复杂的 CRF、码率和编码参数，转化为普通用户能理解的压缩决策。每个视频可使用不同推荐模式，并在历史记录中保留实际模式。</p>
+        <div class="hero-btns">
+          <a href="#solution" class="btn btn-primary" data-i18n="hero.btnCase">查看案例</a>
+          <a href="#how-it-works" class="btn btn-ghost" data-i18n="hero.btnFlow">工作流程</a>
+        </div>
+        <div class="hero-tags">
+          <span class="badge" data-i18n="hero.tag1">可解释规则引擎</span>
+          <span class="badge badge-blue" data-i18n="hero.tag2">每视频独立策略</span>
+          <span class="badge badge-green" data-i18n="hero.tag3">本地安全</span>
+        </div>
+        <div class="hero-chips">
+          <span class="pill" data-i18n="hero.chip1">逐视频策略</span>
+          <span class="pill" data-i18n="hero.chip2">输出变大保护</span>
+          <span class="pill" data-i18n="hero.chip3">本地离线处理</span>
+        </div>
+      </div>
+      <div class="hero-preview">
+        <div class="hero-preview-title" data-i18n="hero.previewTitle">智能压缩计划</div>
+        <div class="hero-preview-pills">
+          <span class="pill" data-i18n="hero.pillSafe">安全优化</span>
+          <span class="pill pill-active" data-i18n="hero.pillSmart">智能推荐</span>
+          <span class="pill" data-i18n="hero.pillSpace">空间优先</span>
+        </div>
+        <div class="hero-preview-row"><span data-i18n="hero.processable">可处理</span><b>30</b></div>
+        <div class="hero-preview-row"><span data-i18n="hero.selected">建议压缩</span><b>20</b></div>
+        <div class="hero-preview-row"><span data-i18n="hero.confirm">需确认</span><b class="yellow">8</b></div>
+        <div class="hero-preview-row"><span data-i18n="hero.skipped">已跳过</span><b>2</b></div>
+        <div class="hero-preview-row"><span data-i18n="hero.estimated">预计节省</span><b class="green">2.8 &ndash; 5.4 GB</b></div>
+        <div class="hero-preview-row"><span data-i18n="hero.chipAutoMode">按每个视频自动选择模式</span><b></b></div>
+        <div class="hero-preview-btn" data-i18n="hero.compressBtn">压缩建议的 20 个</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 1.5: Case Summary -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2 data-i18n="case.title">项目摘要</h2>
+    </div>
+    <div class="grid grid-4">
+      <div class="card case-card">
+        <div class="case-num">01</div>
+        <div class="card-label" data-i18n="case.label1">产品目标</div>
+        <p data-i18n="case.p1">让普通用户不用理解 CRF、码率和编码器，也能做出可靠的视频压缩决策。</p>
+      </div>
+      <div class="card case-card">
+        <div class="case-num">02</div>
+        <div class="card-label" data-i18n="case.label2">核心方案</div>
+        <p data-i18n="case.p2">基于元数据的可解释规则引擎，为每个视频生成 compress / skip / confirm 建议。</p>
+      </div>
+      <div class="card case-card">
+        <div class="case-num">03</div>
+        <div class="card-label" data-i18n="case.label3">关键能力</div>
+        <p data-i18n="case.p3">每个视频可使用不同 recommendedMode，并在历史记录中保留实际模式。</p>
+      </div>
+      <div class="card case-card">
+        <div class="case-num">04</div>
+        <div class="card-label" data-i18n="case.label4">安全边界</div>
+        <p data-i18n="case.p4">压缩后变大不替换原文件，高风险场景需要确认。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: Problem -->
+<section class="section" id="problem">
+  <div class="container">
+    <div class="section-header">
+      <h2 data-i18n="problem.title">为什么视频压缩仍然很难</h2>
+      <p data-i18n="problem.sub">大多数工具暴露参数，用户需要的是决策。</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card problem-card">
+        <div class="card-label" data-i18n="problem.label1">参数错误</div>
+        <h3 data-i18n="problem.h3-1">一刀切压缩</h3>
+        <p data-i18n="problem.p1">同一批视频里，4K 高码率素材、已压缩视频、HEVC 视频不应该共用同一套参数。</p>
+      </div>
+      <div class="card problem-card">
+        <div class="card-label" data-i18n="problem.label2">结果不安全</div>
+        <h3 data-i18n="problem.h3-2">压缩结果不可控</h3>
+        <p data-i18n="problem.p2">有些视频压缩后反而变大，有些视频画质损失明显，但传统工具往往只告诉你"完成了"。</p>
+      </div>
+      <div class="card problem-card">
+        <div class="card-label" data-i18n="problem.label3">门槛太高</div>
+        <h3 data-i18n="problem.h3-3">普通用户不懂参数</h3>
+        <p data-i18n="problem.p3">CRF、preset、码率、像素格式是工程参数，不是普通用户真正想做的选择。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: Solution -->
+<section class="section" id="solution" style="background: var(--bg-soft);">
+  <div class="container">
+    <div class="section-header">
+      <h2 data-i18n="solution.title">从"设置参数"到"生成决策"</h2>
+    </div>
+    <div class="grid grid-4">
+      <div class="card">
+        <div class="card-label" data-i18n="solution.label1">识别压缩价值</div>
+        <h3 data-i18n="solution.h3-1">分析每个视频</h3>
+        <p data-i18n="solution.p1">通过 FFprobe 提取每个导入文件的编码格式、码率、分辨率、时长和文件大小。</p>
+      </div>
+      <div class="card">
+        <div class="card-label" data-i18n="solution.label2">判断风险等级</div>
+        <h3 data-i18n="solution.h3-2">构建智能压缩计划</h3>
+        <p data-i18n="solution.p2">使用 6 层规则引擎将每个视频分类为压缩、跳过或确认。</p>
+      </div>
+      <div class="card">
+        <div class="card-label" data-i18n="solution.label3">分配推荐模式</div>
+        <h3 data-i18n="solution.h3-3">应用每视频模式</h3>
+        <p data-i18n="solution.p3">每个文件获得自己的推荐压缩模式，而不是共享一个全局设置。</p>
+      </div>
+      <div class="card">
+        <div class="card-label" data-i18n="solution.label4">保护原文件</div>
+        <h3 data-i18n="solution.h3-4">保护原始文件</h3>
+        <p data-i18n="solution.p4">输出大于输入保护和原子替换确保原始文件安全。</p>
+      </div>
+    </div>
+    <p style="text-align: center; margin-top: 36px; color: var(--muted); font-size: 15px; font-style: italic;" data-i18n="solution.closing">用户表达意图，ShrinkFlow 选择策略。</p>
+  </div>
+</section>
+
+<!-- Section 4: Core Highlights -->
+<section class="section" id="highlights">
+  <div class="container">
+    <div class="section-header">
+      <h2 data-i18n="highlights.title">核心亮点</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <h3 data-i18n="highlights.h3-1">每视频独立策略</h3>
+        <p data-i18n="highlights.p1">每个视频获得自己的操作和压缩模式，而不是共享一个全局设置。</p>
+        <div class="tags">
+          <span class="tag">recommendedMode</span>
+          <span class="tag">per-item history</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3 data-i18n="highlights.h3-2">三种策略目标</h3>
+        <p data-i18n="highlights.p2">安全优化、智能推荐和空间优先一键切换整个批次的风险偏好。</p>
+        <div class="tags">
+          <span class="tag">light</span>
+          <span class="tag">balanced</span>
+          <span class="tag">deep</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3 data-i18n="highlights.h3-3">可解释的原因</h3>
+        <p data-i18n="highlights.p3">每个推荐都包含原因代码，让用户知道为什么文件被压缩、跳过或确认。</p>
+        <div class="tags">
+          <span class="tag" data-i18n="highlights.tag17">17 个原因代码</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3 data-i18n="highlights.h3-4">安全优先压缩</h3>
+        <p data-i18n="highlights.p4">当输出变大或操作失败时避免替换原始文件。出错时回滚。</p>
+        <div class="tags">
+          <span class="tag">rollback</span>
+          <span class="tag">noSaving</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3 data-i18n="highlights.h3-5">本地优先桌面应用</h3>
+        <p data-i18n="highlights.p5">FFmpeg 已捆绑。处理在本地运行，无需将私人视频上传到任何服务器。</p>
+        <div class="tags">
+          <span class="tag">offline</span>
+          <span class="tag">FFmpeg bundled</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 5: How It Works -->
+<section class="section" id="how-it-works" style="background: var(--bg-soft);">
+  <div class="container">
+    <div class="section-header">
+      <h2 data-i18n="how.title">工作流程</h2>
+    </div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <h4 data-i18n="how.h4-1">导入视频</h4>
+        <p data-i18n="how.p1">拖放文件或选择文件夹。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <h4 data-i18n="how.h4-2">分析元数据</h4>
+        <p data-i18n="how.p2">FFprobe 提取编码格式、码率、分辨率、帧率。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <h4 data-i18n="how.h4-3">构建智能计划</h4>
+        <p data-i18n="how.p3">6 层引擎分类每个视频。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <h4 data-i18n="how.h4-4">应用每视频模式</h4>
+        <p data-i18n="how.p4">每个文件获得自己的推荐模式。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">5</div>
+        <h4 data-i18n="how.h4-5">安全压缩</h4>
+        <p data-i18n="how.p5">原子替换，输出保护。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">6</div>
+        <h4 data-i18n="how.h4-6">查看历史</h4>
+        <p data-i18n="how.p6">每项模式和节省记录。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 6: Decision Engine -->
+<section class="section" id="engine">
+  <div class="container">
+    <div class="section-header">
+      <h2 data-i18n="engine.title">6 层决策引擎</h2>
+      <p data-i18n="engine.sub">透明的规则引擎，不是黑箱。</p>
+    </div>
+    <div class="grid grid-2" style="margin-bottom: 32px;">
+      <div class="card layer-card">
+        <div class="layer-num">Layer 01</div>
+        <div>
+          <h3 data-i18n="engine.h3-1">硬排除</h3>
+          <p data-i18n="engine.p1">缺少元数据、小文件（&lt;20MB）、极短视频（&lt;5s）立即跳过。</p>
+        </div>
+      </div>
+      <div class="card layer-card">
+        <div class="layer-num">Layer 02</div>
+        <div>
+          <h3 data-i18n="engine.h3-2">编码分类</h3>
+          <p data-i18n="engine.p2">高效（HEVC/AV1/VP9）、通用（H.264）、编辑（ProRes/DNxHD）、未知。</p>
+        </div>
+      </div>
+      <div class="card layer-card">
+        <div class="layer-num">Layer 03</div>
+        <div>
+          <h3 data-i18n="engine.h3-3">证据收集</h3>
+          <p data-i18n="engine.p3">BPPF 层级、分辨率、文件大小、时长、码率。每个都成为原因代码。</p>
+        </div>
+      </div>
+      <div class="card layer-card">
+        <div class="layer-num">Layer 04</div>
+        <div>
+          <h3 data-i18n="engine.h3-4">基于目标的决策</h3>
+          <p data-i18n="engine.p4">安全优化 / 智能推荐 / 空间优先各自应用不同的风险阈值。</p>
+        </div>
+      </div>
+      <div class="card layer-card">
+        <div class="layer-num">Layer 05</div>
+        <div>
+          <h3 data-i18n="engine.h3-5">高风险覆盖</h3>
+          <p data-i18n="engine.p5">高效编码重压缩和低 BPPF 情况降级为确认。</p>
+        </div>
+      </div>
+      <div class="card layer-card">
+        <div class="layer-num">Layer 06</div>
+        <div>
+          <h3 data-i18n="engine.h3-6">低节省过滤</h3>
+          <p data-i18n="engine.p6">预期节省低于阈值的文件被跳过以避免浪费。</p>
+        </div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th data-i18n="engine.th1">BPPF 层级</th><th data-i18n="engine.th2">范围</th><th data-i18n="engine.th3">含义</th></tr>
+        </thead>
+        <tbody>
+          <tr><td data-i18n="engine.td-1">已压缩</td><td>&le; 0.045</td><td data-i18n="engine.td-1m">重度压缩，空间极小</td></tr>
+          <tr><td data-i18n="engine.td-2">低</td><td>0.045 &ndash; 0.075</td><td data-i18n="engine.td-2m">轻度压缩</td></tr>
+          <tr><td data-i18n="engine.td-3">中</td><td>0.075 &ndash; 0.12</td><td data-i18n="engine.td-3m">典型消费级视频</td></tr>
+          <tr><td data-i18n="engine.td-4">高</td><td>0.12 &ndash; 0.20</td><td data-i18n="engine.td-4m">良好的压缩候选</td></tr>
+          <tr><td data-i18n="engine.td-5">极高</td><td>&gt; 0.20</td><td data-i18n="engine.td-5m">优秀的压缩候选</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Section 7: Compression Modes -->
+<section class="section" style="background: var(--bg-soft);">
+  <div class="container">
+    <div class="section-header">
+      <h2 data-i18n="modes.title">压缩模式</h2>
+      <p data-i18n="modes.sub">智能计划不总是选择相同的模式。每个文件可能获得自己的推荐模式。</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th data-i18n="modes.th1">模式</th><th>CRF</th><th data-i18n="modes.th3">预设</th><th data-i18n="modes.th4">音频</th><th data-i18n="modes.th5">角色</th></tr>
+        </thead>
+        <tbody>
+          <tr><td data-i18n="modes.m1">默认</td><td>21</td><td>medium</td><td>AAC 128k</td><td data-i18n="modes.m1r">通用</td></tr>
+          <tr><td data-i18n="modes.m2">均衡</td><td>24</td><td>medium</td><td>AAC 128k</td><td data-i18n="modes.m2r">手动均衡模式</td></tr>
+          <tr><td data-i18n="modes.m3">质量优先</td><td>20</td><td>slow</td><td>AAC 192k</td><td data-i18n="modes.m3r">更安全的画质</td></tr>
+          <tr><td data-i18n="modes.m4">重度均衡</td><td>25</td><td>medium</td><td>AAC 128k</td><td data-i18n="modes.m4r">节省空间，轻微质量损失</td></tr>
+          <tr><td data-i18n="modes.m5">最小体积</td><td>30</td><td>medium</td><td>AAC 96k</td><td data-i18n="modes.m5r">手动极限，可能降至 720p</td></tr>
+          <tr><td data-i18n="modes.m6">目标大小快速</td><td>&mdash;</td><td>medium</td><td>AAC 128k</td><td data-i18n="modes.m6r">目标码率，单次编码</td></tr>
+          <tr><td data-i18n="modes.m7">目标大小精确</td><td>&mdash;</td><td>medium</td><td>AAC 128k</td><td data-i18n="modes.m7r">两次编码目标大小</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Section 8: Safety Mechanisms -->
+<section class="section" id="safety">
+  <div class="container">
+    <div class="section-header">
+      <h2 data-i18n="safety.title">安全优先压缩</h2>
+    </div>
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="safety-card">
+          <span class="dot dot-green"></span>
+          <div>
+            <h3 data-i18n="safety.h3-1">输出大于输入保护</h3>
+            <p data-i18n="safety.p1">如果压缩后的文件大于原始文件，ShrinkFlow 会避免替换。原始文件保持不变。</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="safety-card">
+          <span class="dot dot-green"></span>
+          <div>
+            <h3 data-i18n="safety.h3-2">原子备份替换</h3>
+            <p data-i18n="safety.p2">备份 &rarr; 替换 &rarr; 清理。如果任何步骤失败，系统回滚到原始文件。</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="safety-card">
+          <span class="dot dot-yellow"></span>
+          <div>
+            <h3 data-i18n="safety.h3-3">高风险确认</h3>
+            <p data-i18n="safety.p3">高效编码重压缩和高风险情况会被标记供用户审核后再继续。</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="safety-card">
+          <span class="dot dot-yellow"></span>
+          <div>
+            <h3 data-i18n="safety.h3-4">低节省过滤</h3>
+            <p data-i18n="safety.p4">预期收益低于阈值的文件会自动跳过以节省时间。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 9: Product Screenshots -->
+<section class="section" id="screenshots" style="background: var(--bg-soft);">
+  <div class="container">
+    <div class="section-header">
+      <h2 data-i18n="screenshots.title">产品截图</h2>
+      <p data-i18n="screenshots.sub">从导入、智能计划、批量压缩到历史记录和发布交付的完整产品闭环。</p>
+    </div>
+    <div class="screenshot-grid">
+      <div class="screenshot-card featured">
+        <div class="screenshot-media">
+          <img src="assets/screenshots/02-smart-plan.png" alt="Smart Plan" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'">
+          <div class="screenshot-placeholder"><span data-i18n="screenshots.placeholder">截图占位</span></div>
+        </div>
+        <div class="screenshot-info">
+          <span class="screenshot-tag" data-i18n="screenshots.tag1">核心决策</span>
+          <h4 data-i18n="screenshots.h4-2">智能压缩计划</h4>
+          <p data-i18n="screenshots.p2">目标选择器和预计节省。</p>
+          <code>02-smart-plan.png</code>
+        </div>
+      </div>
+      <div class="screenshot-card">
+        <div class="screenshot-media">
+          <img src="assets/screenshots/01-import.png" alt="Import" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'">
+          <div class="screenshot-placeholder"><span data-i18n="screenshots.placeholder">截图占位</span></div>
+        </div>
+        <div class="screenshot-info">
+          <span class="screenshot-tag" data-i18n="screenshots.tag2">导入入口</span>
+          <h4 data-i18n="screenshots.h4-1">导入</h4>
+          <p data-i18n="screenshots.p1">空状态和导入操作。</p>
+          <code>01-import.png</code>
+        </div>
+      </div>
+      <div class="screenshot-card">
+        <div class="screenshot-media">
+          <img src="assets/screenshots/03-plan-active.png" alt="Plan Active" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'">
+          <div class="screenshot-placeholder"><span data-i18n="screenshots.placeholder">截图占位</span></div>
+        </div>
+        <div class="screenshot-info">
+          <span class="screenshot-tag" data-i18n="screenshots.tag3">执行接管</span>
+          <h4 data-i18n="screenshots.h4-3">计划激活</h4>
+          <p data-i18n="screenshots.p3">智能计划控制状态。</p>
+          <code>03-plan-active.png</code>
+        </div>
+      </div>
+      <div class="screenshot-card">
+        <div class="screenshot-media">
+          <img src="assets/screenshots/04-confirm-filter.png" alt="Confirm Filter" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'">
+          <div class="screenshot-placeholder"><span data-i18n="screenshots.placeholder">截图占位</span></div>
+        </div>
+        <div class="screenshot-info">
+          <span class="screenshot-tag" data-i18n="screenshots.tag4">风险审核</span>
+          <h4 data-i18n="screenshots.h4-4">确认过滤</h4>
+          <p data-i18n="screenshots.p4">查看需要确认的视频。</p>
+          <code>04-confirm-filter.png</code>
+        </div>
+      </div>
+      <div class="screenshot-card">
+        <div class="screenshot-media">
+          <img src="assets/screenshots/05-progress.png" alt="Progress" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'">
+          <div class="screenshot-placeholder"><span data-i18n="screenshots.placeholder">截图占位</span></div>
+        </div>
+        <div class="screenshot-info">
+          <span class="screenshot-tag" data-i18n="screenshots.tag5">批量执行</span>
+          <h4 data-i18n="screenshots.h4-5">进度</h4>
+          <p data-i18n="screenshots.p5">整体进度和预计剩余时间。</p>
+          <code>05-progress.png</code>
+        </div>
+      </div>
+      <div class="screenshot-card">
+        <div class="screenshot-media">
+          <img src="assets/screenshots/06-history.png" alt="History" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'">
+          <div class="screenshot-placeholder"><span data-i18n="screenshots.placeholder">截图占位</span></div>
+        </div>
+        <div class="screenshot-info">
+          <span class="screenshot-tag" data-i18n="screenshots.tag6">结果追踪</span>
+          <h4 data-i18n="screenshots.h4-6">历史</h4>
+          <p data-i18n="screenshots.p6">每项压缩模式和节省。</p>
+          <code>06-history.png</code>
+        </div>
+      </div>
+      <div class="screenshot-card">
+        <div class="screenshot-media">
+          <img src="assets/screenshots/07-settings.png" alt="Settings" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'">
+          <div class="screenshot-placeholder"><span data-i18n="screenshots.placeholder">截图占位</span></div>
+        </div>
+        <div class="screenshot-info">
+          <span class="screenshot-tag" data-i18n="screenshots.tag7">FFmpeg 状态</span>
+          <h4 data-i18n="screenshots.h4-7">设置</h4>
+          <p data-i18n="screenshots.p7">捆绑 FFmpeg 状态。</p>
+          <code>07-settings.png</code>
+        </div>
+      </div>
+      <div class="screenshot-card">
+        <div class="screenshot-media">
+          <img src="assets/screenshots/08-release-folder.png" alt="Release Folder" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'">
+          <div class="screenshot-placeholder"><span data-i18n="screenshots.placeholder">截图占位</span></div>
+        </div>
+        <div class="screenshot-info">
+          <span class="screenshot-tag" data-i18n="screenshots.tag8">交付物</span>
+          <h4 data-i18n="screenshots.h4-8">发布文件夹</h4>
+          <p data-i18n="screenshots.p8">安装包、SHA256、安装说明。</p>
+          <code>08-release-folder.png</code>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 10: Architecture -->
+<section class="section" id="architecture">
+  <div class="container">
+    <div class="section-header">
+      <h2 data-i18n="arch.title">架构概览</h2>
+    </div>
+    <div class="grid grid-4" style="margin-bottom: 32px;">
+      <div class="card">
+        <h3 data-i18n="arch.h3-1">主进程</h3>
+        <p data-i18n="arch.p1">36 个 IPC 处理器。FFmpeg 生命周期、文件扫描、任务队列、历史存储。</p>
+      </div>
+      <div class="card">
+        <h3 data-i18n="arch.h3-2">预加载桥接</h3>
+        <p data-i18n="arch.p2">带上下文隔离的类型化 API 边界。contextBridge.exposeInMainWorld。</p>
+      </div>
+      <div class="card">
+        <h3 data-i18n="arch.h3-3">渲染器</h3>
+        <p data-i18n="arch.p3">React 18 UI，Zustand 状态管理，智能计划编排。</p>
+      </div>
+      <div class="card">
+        <h3 data-i18n="arch.h3-4">智能压缩引擎</h3>
+        <p data-i18n="arch.p4">纯 TypeScript 规则引擎。无副作用，可独立测试。</p>
+      </div>
+    </div>
+    <div class="grid grid-2" style="gap: 24px;">
+      <div class="arch-diagram">Renderer (React + Zustand)
+  &darr; typed IPC
+Preload (contextBridge)
+  &darr;
+Main Process (Node.js)
+  &darr;
+FFmpeg / FFprobe</div>
+      <div>
+        <p style="font-size: 13px; color: var(--muted-2); margin-bottom: 12px; font-weight: 600;" data-i18n="arch.modules">主要模块</p>
+        <div class="arch-modules">
+          <span class="arch-module">file-scanner</span>
+          <span class="arch-module">video-analyzer</span>
+          <span class="arch-module">compression-planner</span>
+          <span class="arch-module">ffmpeg-runner</span>
+          <span class="arch-module">task-queue</span>
+          <span class="arch-module">output-manager</span>
+          <span class="arch-module">ffmpeg-manager</span>
+          <span class="arch-module">history-store</span>
+          <span class="arch-module">eta-estimator</span>
+          <span class="arch-module">benchmark-store</span>
+          <span class="arch-module">settings-store</span>
+          <span class="arch-module">device-profiler</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 11: Results -->
+<section class="section" style="background: var(--bg-soft);">
+  <div class="container">
+    <div class="section-header">
+      <h2 data-i18n="results.title">v1.2.0 发布成果</h2>
+    </div>
+    <div class="grid grid-5">
+      <div class="card metric">
+        <div class="metric-value">v1.2.0</div>
+        <div class="metric-label" data-i18n="results.m1">版本</div>
+      </div>
+      <div class="card metric">
+        <div class="metric-value">~169 MB</div>
+        <div class="metric-label" data-i18n="results.m2">安装包体积</div>
+      </div>
+      <div class="card metric">
+        <div class="metric-value">~13 MB</div>
+        <div class="metric-label">app.asar</div>
+      </div>
+      <div class="card metric">
+        <div class="metric-value">7</div>
+        <div class="metric-label" data-i18n="results.m4">压缩模式</div>
+      </div>
+      <div class="card metric">
+        <div class="metric-value">3</div>
+        <div class="metric-label" data-i18n="results.m5">策略目标</div>
+      </div>
+      <div class="card metric">
+        <div class="metric-value">17</div>
+        <div class="metric-label" data-i18n="results.m6">原因代码</div>
+      </div>
+      <div class="card metric">
+        <div class="metric-value">6</div>
+        <div class="metric-label" data-i18n="results.m7">层引擎</div>
+      </div>
+      <div class="card metric">
+        <div class="metric-value">36</div>
+        <div class="metric-label" data-i18n="results.m8">IPC 处理器</div>
+      </div>
+      <div class="card metric">
+        <div class="metric-value" data-i18n="results.m9v">已捆绑</div>
+        <div class="metric-label">FFmpeg</div>
+      </div>
+      <div class="card metric">
+        <div class="metric-value">CN + EN</div>
+        <div class="metric-label" data-i18n="results.m10">语言</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 12: Roadmap -->
+<section class="section" id="roadmap">
+  <div class="container">
+    <div class="section-header">
+      <h2 data-i18n="roadmap.title">下一步计划</h2>
+      <p data-i18n="roadmap.sub">下一阶段方向</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <span class="roadmap-tag" data-i18n="roadmap.tag1">估算准确性</span>
+        <h3 data-i18n="roadmap.h3-1">智能探测</h3>
+        <p data-i18n="roadmap.p1">5 秒样本压缩，获得更好的 ETA 和节省估计。真实编码速度替代基于规则的估计。</p>
+      </div>
+      <div class="card">
+        <span class="roadmap-tag" data-i18n="roadmap.tag2">反馈闭环</span>
+        <h3 data-i18n="roadmap.h3-2">历史学习</h3>
+        <p data-i18n="roadmap.p2">使用过去的压缩结果校准未来估计。使用越多，越准确。</p>
+      </div>
+      <div class="card">
+        <span class="roadmap-tag" data-i18n="roadmap.tag3">质量指标</span>
+        <h3 data-i18n="roadmap.h3-3">质量评估</h3>
+        <p data-i18n="roadmap.p3">压缩后 SSIM / PSNR 测量。用具体数字量化视觉质量影响。</p>
+      </div>
+      <div class="card">
+        <span class="roadmap-tag" data-i18n="roadmap.tag4">批量洞察</span>
+        <h3 data-i18n="roadmap.h3-4">报告页面</h3>
+        <p data-i18n="roadmap.p4">批次级汇总，包括总节省、模式分布和按压缩比排名的文件。</p>
+      </div>
+      <div class="card">
+        <span class="roadmap-tag" data-i18n="roadmap.tag5">预设流程</span>
+        <h3 data-i18n="roadmap.h3-5">用户预设</h3>
+        <p data-i18n="roadmap.p5">自定义 CRF、preset、音频码率配置。保存、加载和重用压缩配置。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 13: Interview Value -->
+<section class="section" style="background: var(--bg-soft);">
+  <div class="container">
+    <div class="section-header">
+      <h2 data-i18n="interview.title">这个项目体现的产品与工程能力</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <h3 data-i18n="interview.h3-1">产品抽象能力</h3>
+        <p data-i18n="interview.p1">将 CRF、码率、编码器这些工程参数，抽象成用户能理解的 compress / skip / confirm 决策。</p>
+      </div>
+      <div class="card">
+        <h3 data-i18n="interview.h3-2">可解释自动化设计</h3>
+        <p data-i18n="interview.p2">不是黑箱推荐，而是通过 17 个 reason codes 让用户理解每个决策。</p>
+      </div>
+      <div class="card">
+        <h3 data-i18n="interview.h3-3">安全优先的用户体验</h3>
+        <p data-i18n="interview.p3">输出变大保护、原子替换、高风险确认，避免"压缩工具伤害原文件"。</p>
+      </div>
+      <div class="card">
+        <h3 data-i18n="interview.h3-4">复杂状态一致性</h3>
+        <p data-i18n="interview.p4">Smart Plan、手动模式、队列执行、筛选、历史记录之间保持一致，避免"显示一套、执行一套"。</p>
+      </div>
+      <div class="card">
+        <h3 data-i18n="interview.h3-5">桌面产品交付</h3>
+        <p data-i18n="interview.p5">从 FFmpeg 内嵌、Windows 打包、安装包体积优化到 release-final 和 showcase-site，完成可演示交付。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 14: Footer -->
+<footer class="footer">
+  <div class="container">
+    <p data-i18n="footer.built">由 Jevon 构建</p>
+    <p>ShrinkFlow v1.2.0 <span data-i18n="footer.portfolio">作品集案例</span></p>
+    <p style="margin-top: 8px;">
+      <span class="badge" style="font-size: 11px;" data-i18n="footer.b1">元数据感知</span>
+      <span class="badge badge-blue" style="font-size: 11px;" data-i18n="footer.b2">可解释</span>
+      <span class="badge badge-green" style="font-size: 11px;" data-i18n="footer.b3">本地优先</span>
+    </p>
+  </div>
+</footer>
+
+<script>
+// Translations
+var translations = {
+  zh: {
+    // Nav
+    'nav.overview': '概览',
+    'nav.engine': '决策引擎',
+    'nav.screenshots': '产品截图',
+    'nav.architecture': '架构',
+    'nav.roadmap': '路线图',
+    // Hero
+    'hero.badge': 'Windows 桌面应用',
+    'hero.titleMain': '元数据感知的视频批量压缩',
+    'hero.titleSub': '每个视频都有自己的最优策略',
+    'hero.sub': 'ShrinkFlow 会分析每个视频的编码、码率、分辨率和文件大小，为每个文件独立判断：压缩、跳过，还是需要人工确认。',
+    'hero.desc': '它把复杂的 CRF、码率和编码参数，转化为普通用户能理解的压缩决策。每个视频可使用不同推荐模式，并在历史记录中保留实际模式。',
+    'hero.btnCase': '查看案例',
+    'hero.btnFlow': '工作流程',
+    'hero.tag1': '可解释规则引擎',
+    'hero.tag2': '每视频独立策略',
+    'hero.tag3': '本地安全',
+    'hero.previewTitle': '智能压缩计划',
+    'hero.pillSafe': '安全优化',
+    'hero.pillSmart': '智能推荐',
+    'hero.pillSpace': '空间优先',
+    'hero.estimated': '预计节省',
+    'hero.processable': '可处理',
+    'hero.selected': '建议压缩',
+    'hero.confirm': '需确认',
+    'hero.skipped': '已跳过',
+    'hero.compressBtn': '压缩建议的 20 个',
+    'hero.chipAutoMode': '按每个视频自动选择模式',
+    'hero.chip1': '逐视频策略',
+    'hero.chip2': '输出变大保护',
+    'hero.chip3': '本地离线处理',
+    // Case Summary
+    'case.title': '项目摘要',
+    'case.label1': '产品目标',
+    'case.p1': '让普通用户不用理解 CRF、码率和编码器，也能做出可靠的视频压缩决策。',
+    'case.label2': '核心方案',
+    'case.p2': '基于元数据的可解释规则引擎，为每个视频生成 compress / skip / confirm 建议。',
+    'case.label3': '关键能力',
+    'case.p3': '每个视频可使用不同 recommendedMode，并在历史记录中保留实际模式。',
+    'case.label4': '安全边界',
+    'case.p4': '压缩后变大不替换原文件，高风险场景需要确认。',
+    // Problem
+    'problem.title': '为什么视频压缩仍然很难',
+    'problem.sub': '大多数工具暴露参数，用户需要的是决策。',
+    'problem.label1': '参数错误',
+    'problem.h3-1': '一刀切压缩',
+    'problem.p1': '同一批视频里，4K 高码率素材、已压缩视频、HEVC 视频不应该共用同一套参数。',
+    'problem.label2': '结果不安全',
+    'problem.h3-2': '压缩结果不可控',
+    'problem.p2': '有些视频压缩后反而变大，有些视频画质损失明显，但传统工具往往只告诉你"完成了"。',
+    'problem.label3': '门槛太高',
+    'problem.h3-3': '普通用户不懂参数',
+    'problem.p3': 'CRF、preset、码率、像素格式是工程参数，不是普通用户真正想做的选择。',
+    // Solution
+    'solution.title': '从"设置参数"到"生成决策"',
+    'solution.label1': '识别压缩价值',
+    'solution.h3-1': '分析每个视频',
+    'solution.p1': '通过 FFprobe 提取每个导入文件的编码格式、码率、分辨率、时长和文件大小。',
+    'solution.label2': '判断风险等级',
+    'solution.h3-2': '构建智能压缩计划',
+    'solution.p2': '使用 6 层规则引擎将每个视频分类为压缩、跳过或确认。',
+    'solution.label3': '分配推荐模式',
+    'solution.h3-3': '应用每视频模式',
+    'solution.p3': '每个文件获得自己的推荐压缩模式，而不是共享一个全局设置。',
+    'solution.label4': '保护原文件',
+    'solution.h3-4': '保护原始文件',
+    'solution.p4': '输出大于输入保护和原子替换确保原始文件安全。',
+    'solution.closing': '用户表达意图，ShrinkFlow 选择策略。',
+    // Highlights
+    'highlights.title': '核心亮点',
+    'highlights.h3-1': '每视频独立策略',
+    'highlights.p1': '每个视频获得自己的操作和压缩模式，而不是共享一个全局设置。',
+    'highlights.h3-2': '三种策略目标',
+    'highlights.p2': '安全优化、智能推荐和空间优先一键切换整个批次的风险偏好。',
+    'highlights.h3-3': '可解释的原因',
+    'highlights.p3': '每个推荐都包含原因代码，让用户知道为什么文件被压缩、跳过或确认。',
+    'highlights.tag17': '17 个原因代码',
+    'highlights.h3-4': '安全优先压缩',
+    'highlights.p4': '当输出变大或操作失败时避免替换原始文件。出错时回滚。',
+    'highlights.h3-5': '本地优先桌面应用',
+    'highlights.p5': 'FFmpeg 已捆绑。处理在本地运行，无需将私人视频上传到任何服务器。',
+    // How It Works
+    'how.title': '工作流程',
+    'how.h4-1': '导入视频',
+    'how.p1': '拖放文件或选择文件夹。',
+    'how.h4-2': '分析元数据',
+    'how.p2': 'FFprobe 提取编码格式、码率、分辨率、帧率。',
+    'how.h4-3': '构建智能计划',
+    'how.p3': '6 层引擎分类每个视频。',
+    'how.h4-4': '应用每视频模式',
+    'how.p4': '每个文件获得自己的推荐模式。',
+    'how.h4-5': '安全压缩',
+    'how.p5': '原子替换，输出保护。',
+    'how.h4-6': '查看历史',
+    'how.p6': '每项模式和节省记录。',
+    // Engine
+    'engine.title': '6 层决策引擎',
+    'engine.sub': '透明的规则引擎，不是黑箱。',
+    'engine.h3-1': '硬排除',
+    'engine.p1': '缺少元数据、小文件（<20MB）、极短视频（<5s）立即跳过。',
+    'engine.h3-2': '编码分类',
+    'engine.p2': '高效（HEVC/AV1/VP9）、通用（H.264）、编辑（ProRes/DNxHD）、未知。',
+    'engine.h3-3': '证据收集',
+    'engine.p3': 'BPPF 层级、分辨率、文件大小、时长、码率。每个都成为原因代码。',
+    'engine.h3-4': '基于目标的决策',
+    'engine.p4': '安全优化 / 智能推荐 / 空间优先各自应用不同的风险阈值。',
+    'engine.h3-5': '高风险覆盖',
+    'engine.p5': '高效编码重压缩和低 BPPF 情况降级为确认。',
+    'engine.h3-6': '低节省过滤',
+    'engine.p6': '预期节省低于阈值的文件被跳过以避免浪费。',
+    'engine.th1': 'BPPF 层级',
+    'engine.th2': '范围',
+    'engine.th3': '含义',
+    'engine.td-1': '已压缩',
+    'engine.td-1m': '重度压缩，空间极小',
+    'engine.td-2': '低',
+    'engine.td-2m': '轻度压缩',
+    'engine.td-3': '中',
+    'engine.td-3m': '典型消费级视频',
+    'engine.td-4': '高',
+    'engine.td-4m': '良好的压缩候选',
+    'engine.td-5': '极高',
+    'engine.td-5m': '优秀的压缩候选',
+    // Modes
+    'modes.title': '压缩模式',
+    'modes.sub': '智能计划不总是选择相同的模式。每个文件可能获得自己的推荐模式。',
+    'modes.th1': '模式',
+    'modes.th3': '预设',
+    'modes.th4': '音频',
+    'modes.th5': '角色',
+    'modes.m1': '默认',
+    'modes.m1r': '通用',
+    'modes.m2': '均衡',
+    'modes.m2r': '手动均衡模式',
+    'modes.m3': '质量优先',
+    'modes.m3r': '更安全的画质',
+    'modes.m4': '重度均衡',
+    'modes.m4r': '节省空间，轻微质量损失',
+    'modes.m5': '最小体积',
+    'modes.m5r': '手动极限，可能降至 720p',
+    'modes.m6': '目标大小快速',
+    'modes.m6r': '目标码率，单次编码',
+    'modes.m7': '目标大小精确',
+    'modes.m7r': '两次编码目标大小',
+    // Safety
+    'safety.title': '安全优先压缩',
+    'safety.h3-1': '输出大于输入保护',
+    'safety.p1': '如果压缩后的文件大于原始文件，ShrinkFlow 会避免替换。原始文件保持不变。',
+    'safety.h3-2': '原子备份替换',
+    'safety.p2': '备份 → 替换 → 清理。如果任何步骤失败，系统回滚到原始文件。',
+    'safety.h3-3': '高风险确认',
+    'safety.p3': '高效编码重压缩和高风险情况会被标记供用户审核后再继续。',
+    'safety.h3-4': '低节省过滤',
+    'safety.p4': '预期收益低于阈值的文件会自动跳过以节省时间。',
+    // Screenshots
+    'screenshots.title': '产品截图',
+    'screenshots.sub': '从导入、智能计划、批量压缩到历史记录和发布交付的完整产品闭环。',
+    'screenshots.placeholder': '截图占位',
+    'screenshots.tag1': '核心决策',
+    'screenshots.tag2': '导入入口',
+    'screenshots.tag3': '执行接管',
+    'screenshots.tag4': '风险审核',
+    'screenshots.tag5': '批量执行',
+    'screenshots.tag6': '结果追踪',
+    'screenshots.tag7': 'FFmpeg 状态',
+    'screenshots.tag8': '交付物',
+    'screenshots.h4-1': '导入',
+    'screenshots.p1': '空状态和导入操作。',
+    'screenshots.h4-2': '智能压缩计划',
+    'screenshots.p2': '目标选择器和预计节省。',
+    'screenshots.h4-3': '计划激活',
+    'screenshots.p3': '智能计划控制状态。',
+    'screenshots.h4-4': '确认过滤',
+    'screenshots.p4': '查看需要确认的视频。',
+    'screenshots.h4-5': '进度',
+    'screenshots.p5': '整体进度和预计剩余时间。',
+    'screenshots.h4-6': '历史',
+    'screenshots.p6': '每项压缩模式和节省。',
+    'screenshots.h4-7': '设置',
+    'screenshots.p7': '捆绑 FFmpeg 状态。',
+    'screenshots.h4-8': '发布文件夹',
+    'screenshots.p8': '安装包、SHA256、安装说明。',
+    // Architecture
+    'arch.title': '架构概览',
+    'arch.h3-1': '主进程',
+    'arch.p1': '36 个 IPC 处理器。FFmpeg 生命周期、文件扫描、任务队列、历史存储。',
+    'arch.h3-2': '预加载桥接',
+    'arch.p2': '带上下文隔离的类型化 API 边界。contextBridge.exposeInMainWorld。',
+    'arch.h3-3': '渲染器',
+    'arch.p3': 'React 18 UI，Zustand 状态管理，智能计划编排。',
+    'arch.h3-4': '智能压缩引擎',
+    'arch.p4': '纯 TypeScript 规则引擎。无副作用，可独立测试。',
+    'arch.modules': '主要模块',
+    // Results
+    'results.title': 'v1.2.0 发布成果',
+    'results.m1': '版本',
+    'results.m2': '安装包体积',
+    'results.m4': '压缩模式',
+    'results.m5': '策略目标',
+    'results.m6': '原因代码',
+    'results.m7': '层引擎',
+    'results.m8': 'IPC 处理器数',
+    'results.m9v': '已捆绑',
+    'results.m10': '语言',
+    // Roadmap
+    'roadmap.title': '下一步计划',
+    'roadmap.sub': '下一阶段方向',
+    'roadmap.tag1': '估算准确性',
+    'roadmap.tag2': '反馈闭环',
+    'roadmap.tag3': '质量指标',
+    'roadmap.tag4': '批量洞察',
+    'roadmap.tag5': '预设流程',
+    'roadmap.h3-1': '智能探测',
+    'roadmap.p1': '5 秒样本压缩，获得更好的 ETA 和节省估计。真实编码速度替代基于规则的估计。',
+    'roadmap.h3-2': '历史学习',
+    'roadmap.p2': '使用过去的压缩结果校准未来估计。使用越多，越准确。',
+    'roadmap.h3-3': '质量评估',
+    'roadmap.p3': '压缩后 SSIM / PSNR 测量。用具体数字量化视觉质量影响。',
+    'roadmap.h3-4': '报告页面',
+    'roadmap.p4': '批次级汇总，包括总节省、模式分布和按压缩比排名的文件。',
+    'roadmap.h3-5': '用户预设',
+    'roadmap.p5': '自定义 CRF、preset、音频码率配置。保存、加载和重用压缩配置。',
+    // Interview
+    'interview.title': '这个项目体现的产品与工程能力',
+    'interview.h3-1': '产品抽象能力',
+    'interview.p1': '将 CRF、码率、编码器这些工程参数，抽象成用户能理解的 compress / skip / confirm 决策。',
+    'interview.h3-2': '可解释自动化设计',
+    'interview.p2': '不是黑箱推荐，而是通过 17 个 reason codes 让用户理解每个决策。',
+    'interview.h3-3': '安全优先的用户体验',
+    'interview.p3': '输出变大保护、原子替换、高风险确认，避免"压缩工具伤害原文件"。',
+    'interview.h3-4': '复杂状态一致性',
+    'interview.p4': 'Smart Plan、手动模式、队列执行、筛选、历史记录之间保持一致，避免"显示一套、执行一套"。',
+    'interview.h3-5': '桌面产品交付',
+    'interview.p5': '从 FFmpeg 内嵌、Windows 打包、安装包体积优化到 release-final 和 showcase-site，完成可演示交付。',
+    // Footer
+    'footer.built': '由 Jevon 构建',
+    'footer.portfolio': '作品集案例',
+    'footer.b1': '元数据感知',
+    'footer.b2': '可解释',
+    'footer.b3': '本地优先'
+  },
+  en: {
+    // Nav
+    'nav.overview': 'Overview',
+    'nav.engine': 'Engine',
+    'nav.screenshots': 'Screenshots',
+    'nav.architecture': 'Architecture',
+    'nav.roadmap': 'Roadmap',
+    // Hero
+    'hero.badge': 'Windows Desktop App',
+    'hero.titleMain': 'Metadata-aware video batch compression.',
+    'hero.titleSub': 'Every video gets its own optimal strategy.',
+    'hero.sub': 'ShrinkFlow analyzes codec, bitrate, resolution, and file size to decide whether each video should be compressed, skipped, or reviewed.',
+    'hero.desc': 'It turns CRF, bitrate, and codec parameters into user-facing compression decisions. Each video can use a different recommended mode, recorded in history.',
+    'hero.btnCase': 'View Case Study',
+    'hero.btnFlow': 'See Demo Flow',
+    'hero.tag1': 'Explainable Rule Engine',
+    'hero.tag2': 'Per-Video Strategy',
+    'hero.tag3': 'Local & Safe',
+    'hero.previewTitle': 'Smart Shrink Plan',
+    'hero.pillSafe': 'Safe Optimize',
+    'hero.pillSmart': 'Smart Recommend',
+    'hero.pillSpace': 'Space Saver',
+    'hero.estimated': 'Estimated saving',
+    'hero.processable': 'Processable',
+    'hero.selected': 'Suggest compress',
+    'hero.confirm': 'Review needed',
+    'hero.skipped': 'Skipped',
+    'hero.compressBtn': 'Compress suggested 20',
+    'hero.chipAutoMode': 'Auto-select mode per video',
+    'hero.chip1': 'Per-video strategy',
+    'hero.chip2': 'Output growth protection',
+    'hero.chip3': 'Local offline processing',
+    // Case Summary
+    'case.title': 'Case Summary',
+    'case.label1': 'Product goal',
+    'case.p1': 'Help non-technical users make reliable compression decisions without understanding CRF, bitrate, or codecs.',
+    'case.label2': 'Core approach',
+    'case.p2': 'An explainable metadata-based rule engine that produces compress / skip / confirm decisions per video.',
+    'case.label3': 'Key capability',
+    'case.p3': 'Each video can use a different recommendedMode, with per-item mode recorded in history.',
+    'case.label4': 'Safety boundary',
+    'case.p4': 'Avoid replacing originals when output grows; require confirmation for high-risk cases.',
+    // Problem
+    'problem.title': 'Why video compression is still hard',
+    'problem.sub': 'Most tools expose parameters. Users need decisions.',
+    'problem.label1': 'Wrong parameter',
+    'problem.h3-1': 'One-size-fits-all compression',
+    'problem.p1': '4K high-bitrate footage, already-compressed videos, and HEVC files should not share the same settings.',
+    'problem.label2': 'Unsafe result',
+    'problem.h3-2': 'Unpredictable results',
+    'problem.p2': 'Some outputs become larger; some lose visible quality. Traditional tools often only say "Done."',
+    'problem.label3': 'Too technical',
+    'problem.h3-3': 'Parameters are not decisions',
+    'problem.p3': 'CRF, preset, bitrate, and pixel format are engineering parameters, not user-facing decisions.',
+    // Solution
+    'solution.title': 'From setting parameters to making decisions',
+    'solution.label1': 'Identify compression value',
+    'solution.h3-1': 'Analyze every video',
+    'solution.p1': 'Extract codec, bitrate, resolution, duration, and file size via FFprobe for each imported file.',
+    'solution.label2': 'Assess risk level',
+    'solution.h3-2': 'Build a Smart Shrink Plan',
+    'solution.p2': 'Classify each video into compress, skip, or confirm using a 6-layer rule engine.',
+    'solution.label3': 'Assign recommended mode',
+    'solution.h3-3': 'Apply per-video mode',
+    'solution.p3': 'Each file receives its own recommended compression mode instead of sharing one global setting.',
+    'solution.label4': 'Protect originals',
+    'solution.h3-4': 'Protect original files',
+    'solution.p4': 'Output-larger-than-input protection and atomic replacement keep originals safe.',
+    'solution.closing': 'The user chooses intent. ShrinkFlow chooses the strategy.',
+    // Highlights
+    'highlights.title': 'Core highlights',
+    'highlights.h3-1': 'Per-video strategy',
+    'highlights.p1': 'Each video receives its own action and compression mode instead of sharing one global setting.',
+    'highlights.h3-2': 'Three strategy goals',
+    'highlights.p2': 'Safe Optimize, Smart Recommend, and Space Saver change the risk preference for the entire batch with one click.',
+    'highlights.h3-3': 'Explainable reasons',
+    'highlights.p3': 'Every recommendation includes reason codes so users know why a file is compressed, skipped, or confirmed.',
+    'highlights.tag17': '17 reason codes',
+    'highlights.h3-4': 'Safety-first compression',
+    'highlights.p4': 'Avoid replacing originals when the output becomes larger or the operation fails. Rollback on error.',
+    'highlights.h3-5': 'Local-first desktop app',
+    'highlights.p5': 'FFmpeg is bundled. Processing runs locally without uploading private videos to any server.',
+    // How It Works
+    'how.title': 'How it works',
+    'how.h4-1': 'Import videos',
+    'how.p1': 'Drag-and-drop files or select a folder.',
+    'how.h4-2': 'Analyze metadata',
+    'how.p2': 'FFprobe extracts codec, bitrate, resolution, fps.',
+    'how.h4-3': 'Build Smart Plan',
+    'how.p3': '6-layer engine classifies each video.',
+    'how.h4-4': 'Apply per-video mode',
+    'how.p4': 'Each file gets its own recommended mode.',
+    'how.h4-5': 'Compress safely',
+    'how.p5': 'Atomic replace, output protection.',
+    'how.h4-6': 'Review history',
+    'how.p6': 'Per-item mode and savings recorded.',
+    // Engine
+    'engine.title': 'The 6-layer decision engine',
+    'engine.sub': 'A transparent rule engine, not a black box.',
+    'engine.h3-1': 'Hard Exclusions',
+    'engine.p1': 'Missing metadata, tiny files (<20MB), very short videos (<5s) are skipped immediately.',
+    'engine.h3-2': 'Codec Classification',
+    'engine.p2': 'Efficient (HEVC/AV1/VP9), Common (H.264), Editing (ProRes/DNxHD), Unknown.',
+    'engine.h3-3': 'Evidence Collection',
+    'engine.p3': 'BPPF tier, resolution, file size, duration, bitrate. Each becomes a reason code.',
+    'engine.h3-4': 'Goal-Based Decision',
+    'engine.p4': 'Safe Optimize / Smart Recommend / Space Saver each apply different risk thresholds.',
+    'engine.h3-5': 'High-Risk Override',
+    'engine.p5': 'Efficient codec recompression and low BPPF cases are downgraded to confirm.',
+    'engine.h3-6': 'Low-Saving Filter',
+    'engine.p6': 'Files with expected saving below threshold are skipped to avoid wasted effort.',
+    'engine.th1': 'BPPF Tier',
+    'engine.th2': 'Range',
+    'engine.th3': 'Meaning',
+    'engine.td-1': 'Already compressed',
+    'engine.td-1m': 'Heavily compressed, minimal room',
+    'engine.td-2': 'Low',
+    'engine.td-2m': 'Lightly compressed',
+    'engine.td-3': 'Medium',
+    'engine.td-3m': 'Typical consumer video',
+    'engine.td-4': 'High',
+    'engine.td-4m': 'Good compression candidate',
+    'engine.td-5': 'Very high',
+    'engine.td-5m': 'Excellent compression candidate',
+    // Modes
+    'modes.title': 'Compression modes',
+    'modes.sub': 'Smart Plan does not always choose the same mode. Each file may receive its own recommended mode.',
+    'modes.th1': 'Mode',
+    'modes.th3': 'Preset',
+    'modes.th4': 'Audio',
+    'modes.th5': 'Role',
+    'modes.m1': 'Default',
+    'modes.m1r': 'General purpose',
+    'modes.m2': 'Balanced',
+    'modes.m2r': 'Manual balanced mode',
+    'modes.m3': 'Quality First',
+    'modes.m3r': 'Safer visual quality',
+    'modes.m4': 'Heavy Balanced',
+    'modes.m4r': 'Space saver, minor quality loss',
+    'modes.m5': 'Smallest Size',
+    'modes.m5r': 'Manual extreme, may downscale to 720p',
+    'modes.m6': 'Target Size Fast',
+    'modes.m6r': 'Target bitrate, single pass',
+    'modes.m7': 'Target Size Accurate',
+    'modes.m7r': 'Two-pass target size',
+    // Safety
+    'safety.title': 'Safety-first compression',
+    'safety.h3-1': 'Output-larger-than-input protection',
+    'safety.p1': 'If the compressed file is larger than the original, ShrinkFlow avoids replacing it. The original stays intact.',
+    'safety.h3-2': 'Atomic backup-replace',
+    'safety.p2': 'Backup → replace → cleanup. If any step fails, the system rolls back to the original file.',
+    'safety.h3-3': 'High-risk confirmation',
+    'safety.p3': 'Efficient codec recompression and high-risk cases are flagged for user review before proceeding.',
+    'safety.h3-4': 'Low-saving filter',
+    'safety.p4': 'Files with expected benefit below the threshold are automatically skipped to save time.',
+    // Screenshots
+    'screenshots.title': 'Product screenshots',
+    'screenshots.sub': 'The full product loop from import and Smart Plan to batch compression, history, and release delivery.',
+    'screenshots.placeholder': 'Screenshot placeholder',
+    'screenshots.tag1': 'Core decision',
+    'screenshots.tag2': 'Import entry',
+    'screenshots.tag3': 'Execution takeover',
+    'screenshots.tag4': 'Risk review',
+    'screenshots.tag5': 'Batch execution',
+    'screenshots.tag6': 'Result tracking',
+    'screenshots.tag7': 'FFmpeg status',
+    'screenshots.tag8': 'Deliverables',
+    'screenshots.h4-1': 'Import',
+    'screenshots.p1': 'Empty state and import actions.',
+    'screenshots.h4-2': 'Smart Shrink Plan',
+    'screenshots.p2': 'Goal selector and estimated savings.',
+    'screenshots.h4-3': 'Smart Plan Active',
+    'screenshots.p3': 'Smart Plan controlling state.',
+    'screenshots.h4-4': 'Confirm Filter',
+    'screenshots.p4': 'Review videos that need confirmation.',
+    'screenshots.h4-5': 'Progress',
+    'screenshots.p5': 'Overall progress and ETA.',
+    'screenshots.h4-6': 'History',
+    'screenshots.p6': 'Per-item compression mode and savings.',
+    'screenshots.h4-7': 'Settings',
+    'screenshots.p7': 'Bundled FFmpeg status.',
+    'screenshots.h4-8': 'Release Folder',
+    'screenshots.p8': 'Installer, SHA256, install notes.',
+    // Architecture
+    'arch.title': 'Architecture overview',
+    'arch.h3-1': 'Main Process',
+    'arch.p1': '36 IPC handlers. FFmpeg lifecycle, file scanning, task queue, history store.',
+    'arch.h3-2': 'Preload Bridge',
+    'arch.p2': 'Typed API boundary with context isolation. contextBridge.exposeInMainWorld.',
+    'arch.h3-3': 'Renderer',
+    'arch.p3': 'React 18 UI, Zustand state management, Smart Plan orchestration.',
+    'arch.h3-4': 'Smart Shrink Engine',
+    'arch.p4': 'Pure TypeScript rule engine. Side-effect free, independently testable.',
+    'arch.modules': 'Main Modules',
+    // Results
+    'results.title': 'v1.2.0 release results',
+    'results.m1': 'Version',
+    'results.m2': 'Installer',
+    'results.m4': 'Compression modes',
+    'results.m5': 'Strategy goals',
+    'results.m6': 'Reason codes',
+    'results.m7': 'Layer engine',
+    'results.m8': 'IPC handlers',
+    'results.m9v': 'Bundled',
+    'results.m10': 'Languages',
+    // Roadmap
+    'roadmap.title': 'What comes next',
+    'roadmap.sub': 'Next-stage directions',
+    'roadmap.tag1': 'Estimate accuracy',
+    'roadmap.tag2': 'Feedback loop',
+    'roadmap.tag3': 'Quality metrics',
+    'roadmap.tag4': 'Batch insights',
+    'roadmap.tag5': 'Preset workflow',
+    'roadmap.h3-1': 'Smart Probe',
+    'roadmap.p1': '5-second sample compression for better ETA and saving estimates. Real encoding speed replaces rule-based estimation.',
+    'roadmap.h3-2': 'History Learning',
+    'roadmap.p2': 'Use past compression results to calibrate future estimates. The more you use it, the more accurate it becomes.',
+    'roadmap.h3-3': 'Quality Assessment',
+    'roadmap.p3': 'SSIM / PSNR measurement after compression. Quantify visual quality impact with concrete numbers.',
+    'roadmap.h3-4': 'Report Page',
+    'roadmap.p4': 'Batch-level summary with total savings, mode distribution, and top files by compression ratio.',
+    'roadmap.h3-5': 'User Presets',
+    'roadmap.p5': 'Custom CRF, preset, audio bitrate profiles. Save, load, and reuse compression configurations.',
+    // Interview
+    'interview.title': 'Product and engineering capabilities demonstrated',
+    'interview.h3-1': 'Product abstraction',
+    'interview.p1': 'Abstracting engineering parameters (CRF, bitrate, codecs) into compress / skip / confirm decisions that users can understand.',
+    'interview.h3-2': 'Explainable automation design',
+    'interview.p2': 'Not black-box recommendations — 17 reason codes let users understand every decision.',
+    'interview.h3-3': 'Safety-first user experience',
+    'interview.p3': 'Output-growth protection, atomic replace, high-risk confirmation — avoiding "compression tool damages originals."',
+    'interview.h3-4': 'Complex state consistency',
+    'interview.p4': 'Consistency across Smart Plan, manual mode, queue execution, filters, and history — avoiding "show one thing, execute another."',
+    'interview.h3-5': 'Desktop product delivery',
+    'interview.p5': 'From FFmpeg bundling and Windows packaging to release-final and showcase-site — completing a demonstrable delivery.',
+    // Footer
+    'footer.built': 'Built by Jevon',
+    'footer.portfolio': 'Portfolio Case Study',
+    'footer.b1': 'Metadata-aware',
+    'footer.b2': 'Explainable',
+    'footer.b3': 'Local-first'
+  }
+};
+
+function applyLanguage(lang) {
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    if (translations[lang] && translations[lang][key] !== undefined) {
+      el.textContent = translations[lang][key];
+    }
+  });
+  document.getElementById('lang-toggle').textContent = lang === 'zh' ? 'EN' : '中文';
+  document.title = lang === 'zh'
+    ? 'ShrinkFlow v1.2.0 — 作品集案例'
+    : 'ShrinkFlow v1.2.0 — Portfolio Case Study';
+  try { localStorage.setItem('shrinkflow-showcase-lang', lang); } catch (e) {}
+}
+
+// Smooth scroll
+document.querySelectorAll('.nav-links a').forEach(function(link) {
+  link.addEventListener('click', function(e) {
+    var href = this.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      var target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  });
+});
+
+// Language toggle
+var savedLang = 'zh';
+try { savedLang = localStorage.getItem('shrinkflow-showcase-lang') || 'zh'; } catch (e) {}
+applyLanguage(savedLang);
+
+document.getElementById('lang-toggle').addEventListener('click', function() {
+  var current = 'zh';
+  try { current = localStorage.getItem('shrinkflow-showcase-lang') || 'zh'; } catch (e) {}
+  applyLanguage(current === 'zh' ? 'en' : 'zh');
+});
+</script>
+
+</body>
+</html>

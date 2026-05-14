@@ -1,0 +1,54 @@
+node_modules/
+out/
+dist/
+release/
+src/shared/build-info.ts
+.DS_Store
+*.log
+.env
+.env.local
+.env.*.local
+
+# --- ShrinkFlow local / build / release ignores ---
+node_modules/
+dist/
+dist_build/
+out/
+.tmp/
+.cache/
+.vite/
+coverage/
+test-results/
+playwright-report/
+.nyc_output/
+
+_cleanup_backup/
+
+# Electron / build artifacts
+*.asar
+*.asar_new
+*.asar_old
+*.blockmap
+
+# Release binaries should be uploaded to GitHub Releases, not committed
+release-final/*.exe
+release-final/*.blockmap
+release-final/*.zip
+release-final/*.7z
+
+# Bundled FFmpeg binaries are too large for normal GitHub repo
+resources/ffmpeg/
+
+# OS junk
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Logs / temp
+*.log
+*.tmp
+*.bak
+*.old
+*.backup
+*.part
+*.download

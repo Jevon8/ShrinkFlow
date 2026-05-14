@@ -1,0 +1,1 @@
+25924fd5ba4d59b6754e529380618b5be005d7466ce4ba5f818a0c55df66cfe8 *release-final/ShrinkFlow-v1.2.0-Windows-x64-Setup.exe

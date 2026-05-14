@@ -1,0 +1,40 @@
+appId: com.shrinkflow.app
+productName: ShrinkFlow
+copyright: Copyright © 2026 Jevon
+directories:
+  buildResources: build
+files:
+  - '!**/.vscode/*'
+  - '!src/*'
+  - '!electron.vite.config.*'
+  - '!{.eslintignore,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
+  - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
+  - '!{CLAUDE.md,shrink_flow_development_plan.md}'
+  - '!{eslint.config.mjs,postcss.config.js,tailwind.config.js,vitest.config.ts}'
+  - '!{tsconfig.node.tsbuildinfo,tsconfig.web.tsbuildinfo}'
+  - '!resources/**'
+  - '!dist/**'
+  - '!dist2/**'
+  - '!release/**'
+  - '!release-final/**'
+  - '!docs/**'
+  - '!scripts/**'
+  - '!.claude/**'
+extraResources:
+  - from: resources/ffmpeg
+    to: ffmpeg
+    filter:
+      - '**/*'
+win:
+  executableName: shrinkflow
+  signAndEditExecutable: false
+  icon: build/icon.ico
+  target:
+    - nsis
+nsis:
+  artifactName: ${name}-${version}-setup.${ext}
+  shortcutName: ${productName}
+  uninstallDisplayName: ${productName}
+  createDesktopShortcut: always
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico

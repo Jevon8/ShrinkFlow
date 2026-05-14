@@ -1,0 +1,29 @@
+ShrinkFlow v1.2.0 — Release Notes
+====================================
+
+New Features:
+- Smart Shrink Plan: AI-driven per-video compression strategy based on codec, bitrate, resolution, and file size analysis
+- Per-video recommendedMode execution: each video uses its own optimal compression mode
+- Three intelligent strategies: Safe Optimize (light), Smart Recommend (balanced), Space Saver (deep)
+- heavy_balanced mode: CRF 25 / medium / yuv420p / AAC 128k for significant space savings with minor quality loss
+- Smart Plan UI: "Smart Plan active" banner and stats bar when plan is controlling compression
+- "Compress Selected (N)" button: shows exact count of videos to be compressed
+- Confirm video filter: click "Needs Confirm" to view and manage high-risk videos requiring confirmation
+- Output-larger-than-input protection: prevents replacing originals when compression increases file size
+- History per-item mode: records which compression mode was used for each video
+
+Improvements:
+- Unified advice data source for consistent statistics and filtering
+- Fallback mode notice when Smart Plan is active
+- Empty state for confirm filter with restore button
+
+Bug Fixes:
+- Fixed confirm count display inconsistency between stats bar and video list
+- Fixed Smart Plan summary and filter using different data sources after goal change
+
+Technical:
+- Electron 33.4.11
+- React 18
+- TypeScript
+- FFmpeg bundled
+- No telemetry, fully offline

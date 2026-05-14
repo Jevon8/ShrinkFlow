@@ -1,0 +1,20 @@
+ShrinkFlow v1.2.0 — Installation Guide
+========================================
+
+System Requirements:
+- Windows 10/11 (64-bit)
+- FFmpeg (bundled — no separate installation needed)
+
+Installation:
+1. Run ShrinkFlow-v1.2.0-Windows-x64-Setup.exe
+2. Follow the installer prompts
+3. Launch from Start Menu or Desktop shortcut
+
+FFmpeg:
+ShrinkFlow bundles FFmpeg. No separate download required.
+
+Uninstall:
+Use Windows Settings > Apps > ShrinkFlow > Uninstall
+
+Support:
+https://github.com/anthropics/claude-code/issues
